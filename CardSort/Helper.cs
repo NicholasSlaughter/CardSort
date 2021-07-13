@@ -10,13 +10,41 @@ namespace CardSort
     {
         public void Play()
         {
-            List<string> tempCardList = GetUserInput();
+            List<string> tempCardList = new List<string>();
+            string continu = "a";
+            string response;
 
-            if(tempCardList.Count>0)
+            //The program will continue to run untill the user wants to end the program
+            while (continu[0] != 'n')
             {
-                IDeck deckOfCards = new Deck(CreateListOfCards(tempCardList));
-                deckOfCards.Sort();
-                Console.WriteLine(deckOfCards.ToString());
+                //Set the users input as a list of strings
+                tempCardList = GetUserInput();
+
+                //If the users input is greater than 1 than the input was valid and we sort the deck
+                if (tempCardList.Count>0)
+                {
+                    IDeck deckOfCards = new Deck(CreateListOfCards(tempCardList));
+                    deckOfCards.Sort();
+                    Console.WriteLine("Your Sorted Deck of Cards:\n" + deckOfCards.ToString());
+                }
+
+                //Check to see if the user wants to sort another deck of cards
+                response = "a";
+                while (response != "g")
+                {
+                    Console.Write("Would you like to sort another deck of cards? (Y/N): ");
+                    response = Console.ReadLine().ToLower();
+                    if (response[0] == 'y' || response[0] == 'n')
+                    {
+                        //If the user input a valid response then set continue to either y or n and exit the nested while loop
+                        continu = response;
+                        response = "g";
+                        if (continu[0] == 'y')
+                            Console.WriteLine(""); //Seperates previous card sorts by a new line space
+                    }
+                    else
+                        Console.WriteLine("ERROR: You can only enter Y or N for your response!"); //If the user input any other string that does not start with y or n then tell the user and prompt them to enter an answer again
+                }
             }
         }
 
@@ -24,6 +52,7 @@ namespace CardSort
         {
             string cardsToSeperate;
 
+            //If the application is running and we are not unit testing then we take input from the console window
             if (test==null)
             {
                 Console.WriteLine("Welcome to Card Sort");
@@ -36,13 +65,16 @@ namespace CardSort
                 cardsToSeperate = Console.ReadLine();
             }
             else
-                cardsToSeperate = test;
+                cardsToSeperate = test; //If we are testing then set the variable to what string of cards we want to test
 
+            //Get rid of white spaces and make all characters lower case in the string
             cardsToSeperate = cardsToSeperate.Replace(" ", string.Empty);
             cardsToSeperate = cardsToSeperate.ToLower();
+
+            //If all of the cards entered are valid then return a list of the cards
             if(ValidInputCheck(cardsToSeperate.Split(',').ToList()))
                 return cardsToSeperate.Split(',').ToList();
-            return new List<string>();
+            return new List<string>(); //If the program makes it here then there was an invalid card
         }
 
         private bool ValidInputCheck(List<string> inputList)
@@ -72,7 +104,7 @@ namespace CardSort
                     }
                     else
                     {
-                        //The card only has a length of 2 so it must have a card value of 1-9 or j, q, k, or a if not then it is not a valid card
+                        //The card only has a length of 2 so it must have a card value of 1-9, j, q, k, or a if not then it is not a valid card
                         if (element[0] == '1' || element[0] == '2' || element[0] == '3' || element[0] == '4' || element[0] == '5' ||
                             element[0] == '6' || element[0] == '7' || element[0] == '8' || element[0] == '9' ||
                             element[0] == 'j' || element[0] == 'q' || element[0] == 'k' || element[0] == 'a')
@@ -90,14 +122,14 @@ namespace CardSort
                                     "\nCard that caused the error: " + element.ToString());
                     }
 
-                    return false;
+                    return false; //If the program makes it here then a card did not meet the criteria of what makes a valid card and we return false
                 }
                 else
                 {
-                    //Telling the user that the element that caused the error was an empty string was not helpful so had to had logic to tell them they need to have at least 1 card instead
+                    //A card was either and empty string or it had more than 3 characters so let the user know of the error and return false
                     if (element == "")
                     {
-                        Console.WriteLine("ERROR: A deck of cards has to have at least 1 card in it!");
+                        Console.WriteLine("ERROR: A card has to have a value and a suit");
                         Console.WriteLine("Example Cards: 3c, Js, 2d, 10h, Kh, 8s, Ac, 4h");
                     }
                     else
@@ -118,8 +150,10 @@ namespace CardSort
         {
             IList<ICard> listOfCards = new List<ICard>();
 
+            //foreach card in the temporary card list make a card object and add it to the list of cards
             foreach (string card in tempCardList)
             {
+                //If a card value is j, q, k, or a then we need to set its value to 11-14 which helps with the sorting of the cards
                 if (!Int32.TryParse(card[0].ToString(), out int num))
                 {
                     if (card[0] == 'j')
@@ -139,7 +173,7 @@ namespace CardSort
                     listOfCards.Add(new Card(Int32.Parse(card[0].ToString() + card[1].ToString(), NumberStyles.Integer), card[2].ToString()));
             }
 
-            return listOfCards;
+            return listOfCards; //Successfully created a list of card objects from the cards a user entered
         }
     }
 }

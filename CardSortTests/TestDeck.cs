@@ -82,7 +82,7 @@ namespace CardSortTests
                     new Card(13,"h"),
                     new Card(14,"s"),
                 });
-                string expected = "Jd\n\nQc\n\nKh\n\nAs";
+                string expected = "Jd\nQc\nKh\nAs\n";
                 string actual = deckOfCards.ToString();
 
                 Assert.Equal(expected, actual);
@@ -105,7 +105,7 @@ namespace CardSortTests
                     new Card(13,"h"),
                     new Card(14,"s"),
                 });
-                string notExpected = "11d\n\n12c\n\n13h\n\n14s";
+                string notExpected = "11d\n12c\n13h\n14s\n";
                 string actual = deckOfCards.ToString();
 
                 Assert.NotEqual(notExpected, actual);
@@ -133,7 +133,7 @@ namespace CardSortTests
                     new Card(13,"h"),
                     new Card(14,"s"),
                 });
-                string expected = "5d\n\n7d\n\nJd\n\n3s\n\nAs\n\nQc\n\n3h\n\nKh";
+                string expected = "5d\n7d\nJd\n3s\nAs\nQc\n3h\nKh\n";
 
                 deckOfCards.Sort();
                 string actual = deckOfCards.ToString();
@@ -163,7 +163,7 @@ namespace CardSortTests
                     new Card(13,"h"),
                     new Card(14,"s"),
                 });
-                string expected = "5d\n\n7d\n\n11d\n\n3s\n\n14s\n\n12c\n\n3h\n\n13h";
+                string expected = "5d\n7d\n11d\n3s\n14s\n12c\n3h\n13h\n";
 
                 deckOfCards.Sort();
                 string actual = deckOfCards.ToString();
