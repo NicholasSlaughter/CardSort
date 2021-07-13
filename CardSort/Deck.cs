@@ -30,17 +30,17 @@ namespace CardSort
                 if (card.GetCardValue() > CardValue.Ten)
                 {
                     if (card.GetCardValue() == CardValue.Jack)
-                        sb.Append("J" + (char)card.GetSuit());
+                        sb.Append("J" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
                     if (card.GetCardValue() == CardValue.Queen)
-                        sb.Append("Q" + (char)card.GetSuit());
+                        sb.Append("Q" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
                     if (card.GetCardValue() == CardValue.King)
-                        sb.Append("K" + (char)card.GetSuit());
+                        sb.Append("K" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
                     if (card.GetCardValue() == CardValue.Ace)
-                        sb.Append("A" + (char)card.GetSuit());
+                        sb.Append("A" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
                     sb.Append("\n"); //Add a new line because it looks nicer when every card is on a new line
                     continue; //If the card value was above 10 then we already added the card to the string builder so we want to continue to the next card in the list
                 }
-                sb.Append(card.ToString()); //Add the card to the string builder
+                sb.Append(card.ToString() + " - " + card.GetCardValue() + " of " + card.GetSuit()); //Add the card to the string builder
                 sb.Append("\n");
             }
             return sb.ToString(); //The proper output string has been built so return

@@ -21,6 +21,7 @@ namespace CardSort
         {
             Helper h = new Helper();
             h.Play();
+            Console.WriteLine("Goodbye");
         }
     }
 }

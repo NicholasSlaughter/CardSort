@@ -83,7 +83,7 @@ namespace CardSortTests
                     new Card(CardValue.King,CardSuit.Hearts),
                     new Card(CardValue.Ace,CardSuit.Spades),
                 });
-                string expected = "Jd\nQc\nKh\nAs\n";
+                string expected = "Jd - Jack of Diamonds\nQc - Queen of Clubs\nKh - King of Hearts\nAs - Ace of Spades\n";
                 string actual = deckOfCards.ToString();
 
                 Assert.Equal(expected, actual);
@@ -134,7 +134,7 @@ namespace CardSortTests
                     new Card(CardValue.King,CardSuit.Hearts),
                     new Card(CardValue.Ace,CardSuit.Spades),
                 });
-                string expected = "5d\n7d\nJd\n3s\nAs\nQc\n3h\nKh\n";
+                string expected = "5d - Five of Diamonds\n7d - Seven of Diamonds\nJd - Jack of Diamonds\n3s - Three of Spades\nAs - Ace of Spades\nQc - Queen of Clubs\n3h - Three of Hearts\nKh - King of Hearts\n";
 
                 deckOfCards.Sort();
                 string actual = deckOfCards.ToString();
