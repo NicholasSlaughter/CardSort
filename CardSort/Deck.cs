@@ -11,6 +11,8 @@ namespace CardSort
 
         public Deck(IList<ICard> cards)
         {
+            if (cards.Count() == 0)
+                throw new ArgumentException("There needs to be at least 1 card in the deck", nameof(cards));
             this.Cards = cards;
         }
 
@@ -20,15 +22,15 @@ namespace CardSort
 
             foreach (Card card in Cards)
             {
-                if (card.GetCardFace() > 10)
+                if (card.GetCardValue() > 10)
                 {
-                    if (card.GetCardFace() == 11)
+                    if (card.GetCardValue() == 11)
                         sb.Append("J" + card.GetSuit());
-                    if (card.GetCardFace() == 12)
+                    if (card.GetCardValue() == 12)
                         sb.Append("Q" + card.GetSuit());
-                    if (card.GetCardFace() == 13)
+                    if (card.GetCardValue() == 13)
                         sb.Append("K" + card.GetSuit());
-                    if (card.GetCardFace() == 14)
+                    if (card.GetCardValue() == 14)
                         sb.Append("A" + card.GetSuit());
                     sb.Append("\n\n");
                     continue;
@@ -43,7 +45,7 @@ namespace CardSort
 
         public void Sort()
         {
-            IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardFace());
+            IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardValue());
             IList<ICard> deckOfCards = sortedListOfCards.ToList();
             IList<ICard> listOfDiamonds = new List<ICard>();
             IList<ICard> listOfSpades = new List<ICard>();
