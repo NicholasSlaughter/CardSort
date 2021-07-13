@@ -14,16 +14,16 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(1,"d"),
-                    new Card(2,"c"),
-                    new Card(14,"h"),
-                    new Card(9,"s"),
+                    new Card(CardValue.Two,CardSuit.Diamonds),
+                    new Card(CardValue.Three,CardSuit.Clubs),
+                    new Card(CardValue.Ace,CardSuit.Hearts),
+                    new Card(CardValue.Nine,CardSuit.Spades),
                 });
                 int validCard = 0;
 
                 foreach (Card card in deckOfCards.Cards)
                 {
-                    if (card.ToString() == "1d" || card.ToString() == "2c" || card.ToString() == "14h" || card.ToString() == "9s")
+                    if (card.ToString() == "2d" || card.ToString() == "3c" || card.ToString() == "14h" || card.ToString() == "9s")
                     {
                         validCard += 1;
                     }
@@ -46,7 +46,7 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(15,"d"),
+                    new Card((CardValue)15,CardSuit.Diamonds),
                 });
 
                 Assert.True(false);
@@ -77,10 +77,10 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(11,"d"),
-                    new Card(12,"c"),
-                    new Card(13,"h"),
-                    new Card(14,"s"),
+                    new Card(CardValue.Jack,CardSuit.Diamonds),
+                    new Card(CardValue.Queen,CardSuit.Clubs),
+                    new Card(CardValue.King,CardSuit.Hearts),
+                    new Card(CardValue.Ace,CardSuit.Spades),
                 });
                 string expected = "Jd\nQc\nKh\nAs\n";
                 string actual = deckOfCards.ToString();
@@ -100,10 +100,10 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(11,"d"),
-                    new Card(12,"c"),
-                    new Card(13,"h"),
-                    new Card(14,"s"),
+                    new Card(CardValue.Jack,CardSuit.Diamonds),
+                    new Card(CardValue.Queen,CardSuit.Clubs),
+                    new Card(CardValue.King,CardSuit.Hearts),
+                    new Card(CardValue.Ace,CardSuit.Spades),
                 });
                 string notExpected = "11d\n12c\n13h\n14s\n";
                 string actual = deckOfCards.ToString();
@@ -124,14 +124,14 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(7,"d"),
-                    new Card(3,"h"),
-                    new Card(5,"d"),
-                    new Card(3,"s"),
-                    new Card(11,"d"),
-                    new Card(12,"c"),
-                    new Card(13,"h"),
-                    new Card(14,"s"),
+                    new Card(CardValue.Seven,CardSuit.Diamonds),
+                    new Card(CardValue.Three,CardSuit.Hearts),
+                    new Card(CardValue.Five,CardSuit.Diamonds),
+                    new Card(CardValue.Three,CardSuit.Spades),
+                    new Card(CardValue.Jack,CardSuit.Diamonds),
+                    new Card(CardValue.Queen,CardSuit.Clubs),
+                    new Card(CardValue.King,CardSuit.Hearts),
+                    new Card(CardValue.Ace,CardSuit.Spades),
                 });
                 string expected = "5d\n7d\nJd\n3s\nAs\nQc\n3h\nKh\n";
 
@@ -154,14 +154,14 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(7,"d"),
-                    new Card(3,"h"),
-                    new Card(5,"d"),
-                    new Card(3,"s"),
-                    new Card(11,"d"),
-                    new Card(12,"c"),
-                    new Card(13,"h"),
-                    new Card(14,"s"),
+                    new Card(CardValue.Seven,CardSuit.Diamonds),
+                    new Card(CardValue.Three,CardSuit.Hearts),
+                    new Card(CardValue.Five,CardSuit.Diamonds),
+                    new Card(CardValue.Three,CardSuit.Spades),
+                    new Card(CardValue.Jack,CardSuit.Diamonds),
+                    new Card(CardValue.Queen,CardSuit.Clubs),
+                    new Card(CardValue.King,CardSuit.Hearts),
+                    new Card(CardValue.Ace,CardSuit.Spades),
                 });
                 string expected = "5d\n7d\n11d\n3s\n14s\n12c\n3h\n13h\n";
 

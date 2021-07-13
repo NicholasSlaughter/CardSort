@@ -105,7 +105,7 @@ namespace CardSort
                     else
                     {
                         //The card only has a length of 2 so it must have a card value of 1-9, j, q, k, or a if not then it is not a valid card
-                        if (element[0] == '1' || element[0] == '2' || element[0] == '3' || element[0] == '4' || element[0] == '5' ||
+                        if (element[0] == '2' || element[0] == '3' || element[0] == '4' || element[0] == '5' ||
                             element[0] == '6' || element[0] == '7' || element[0] == '8' || element[0] == '9' ||
                             element[0] == 'j' || element[0] == 'q' || element[0] == 'k' || element[0] == 'a')
                         {
@@ -118,7 +118,7 @@ namespace CardSort
                                     "\nCard that caused the error: " + element.ToString());
                         }
                         else
-                            Console.WriteLine("ERROR: The value for a card must be one of the following: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A" +
+                            Console.WriteLine("ERROR: The value for a card must be one of the following: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A" +
                                     "\nCard that caused the error: " + element.ToString());
                     }
 
@@ -157,20 +157,20 @@ namespace CardSort
                 if (!Int32.TryParse(card[0].ToString(), out int num))
                 {
                     if (card[0] == 'j')
-                        listOfCards.Add(new Card(11, card[1].ToString()));
+                        listOfCards.Add(new Card(CardValue.Jack, (CardSuit)card[1]));
                     if (card[0] == 'q')
-                        listOfCards.Add(new Card(12, card[1].ToString()));
+                        listOfCards.Add(new Card(CardValue.Queen, (CardSuit)card[1]));
                     if (card[0] == 'k')
-                        listOfCards.Add(new Card(13, card[1].ToString()));
+                        listOfCards.Add(new Card(CardValue.King, (CardSuit)card[1]));
                     if (card[0] == 'a')
-                        listOfCards.Add(new Card(14, card[1].ToString()));
+                        listOfCards.Add(new Card(CardValue.Ace, (CardSuit)card[1]));
                     continue;
                 }
 
                 if (card.Length == 2)
-                    listOfCards.Add(new Card(Int32.Parse(card[0].ToString(), NumberStyles.Integer), card[1].ToString()));
+                    listOfCards.Add(new Card((CardValue)Int32.Parse(card[0].ToString(), NumberStyles.Integer), (CardSuit)card[1]));
                 if (card.Length == 3) //The face value of the card is 10
-                    listOfCards.Add(new Card(Int32.Parse(card[0].ToString() + card[1].ToString(), NumberStyles.Integer), card[2].ToString()));
+                    listOfCards.Add(new Card((CardValue)Int32.Parse(card[0].ToString() + card[1].ToString(), NumberStyles.Integer), (CardSuit)card[2]));
             }
 
             return listOfCards; //Successfully created a list of card objects from the cards a user entered

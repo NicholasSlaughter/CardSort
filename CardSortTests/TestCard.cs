@@ -11,8 +11,8 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(1, "d");
-                Assert.Equal(1, cardToCreate.GetCardValue());
+                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Assert.Equal(CardValue.Two, cardToCreate.GetCardValue());
             }
             catch (Exception e)
             {
@@ -25,7 +25,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(16, "d");
+                Card cardToCreate = new Card((CardValue)16, CardSuit.Diamonds);
                 Assert.True(false);
             }
             catch (ArgumentException e)
@@ -38,8 +38,8 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(1, "d");
-                Assert.Equal("d", cardToCreate.GetSuit());
+                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Assert.Equal(CardSuit.Diamonds, cardToCreate.GetSuit());
             }
             catch (Exception e)
             {
@@ -52,7 +52,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(1, "b");
+                Card cardToCreate = new Card(CardValue.Two, (CardSuit)'b');
                 Assert.True(false);
             }
             catch (ArgumentException e)
@@ -65,8 +65,9 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(1, "d");
-                Assert.Equal("1d", cardToCreate.ToString());
+                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                string expected = cardToCreate.ToString();
+                Assert.Equal("2d", cardToCreate.ToString());
             }
             catch (Exception e)
             {
@@ -79,8 +80,8 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(1, "d");
-                Assert.False("1c" == cardToCreate.ToString());
+                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Assert.False("2c" == cardToCreate.ToString());
             }
             catch (Exception e)
             {

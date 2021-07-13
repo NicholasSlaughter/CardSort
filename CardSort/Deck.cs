@@ -25,16 +25,16 @@ namespace CardSort
             foreach (Card card in Cards)
             {
                 //If the value is above 10 then we need to add change its value to J, Q, K, or A to because that is the proper output. EX: 11d becomes Jd
-                if (card.GetCardValue() > 10)
+                if (card.GetCardValue() > CardValue.Ten)
                 {
-                    if (card.GetCardValue() == 11)
-                        sb.Append("J" + card.GetSuit());
-                    if (card.GetCardValue() == 12)
-                        sb.Append("Q" + card.GetSuit());
-                    if (card.GetCardValue() == 13)
-                        sb.Append("K" + card.GetSuit());
-                    if (card.GetCardValue() == 14)
-                        sb.Append("A" + card.GetSuit());
+                    if (card.GetCardValue() == CardValue.Jack)
+                        sb.Append("J" + (char)card.GetSuit());
+                    if (card.GetCardValue() == CardValue.Queen)
+                        sb.Append("Q" + (char)card.GetSuit());
+                    if (card.GetCardValue() == CardValue.King)
+                        sb.Append("K" + (char)card.GetSuit());
+                    if (card.GetCardValue() == CardValue.Ace)
+                        sb.Append("A" + (char)card.GetSuit());
                     sb.Append("\n"); //Add a new line because it looks nicer when every card is on a new line
                     continue; //If the card value was above 10 then we already added the card to the string builder so we want to continue to the next card in the list
                 }
@@ -56,13 +56,13 @@ namespace CardSort
             //For each card in the deck of cards add a card to the list of its suit
             foreach (Card card in deckOfCards)
             {
-                if (card.GetSuit() == "d")
+                if (card.GetSuit() == CardSuit.Diamonds)
                     listOfDiamonds.Add(card);
-                if (card.GetSuit() == "s")
+                if (card.GetSuit() == CardSuit.Spades)
                     listOfSpades.Add(card);
-                if (card.GetSuit() == "c")
+                if (card.GetSuit() == CardSuit.Clubs)
                     listOfClubs.Add(card);
-                if (card.GetSuit() == "h")
+                if (card.GetSuit() == CardSuit.Hearts)
                     listOfHearts.Add(card);
             }
 

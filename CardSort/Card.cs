@@ -6,18 +6,18 @@ namespace CardSort
 {
     public class Card : ICard
     {
-        public int CardValue { get; set; }
-        public string Suit { get; set; }
-        public Card(int cardValue, string suit)
+        public CardValue Value { get; private set; }
+        public CardSuit Suit { get; private set; }
+        public Card(CardValue cardValue, CardSuit suit)
         {
-            //Cards can only have a value between 1 and 14 (1-Ace)
-            if (cardValue > 0 && cardValue < 15)
-                this.CardValue = cardValue;
+            //Cards can only have a value between 2 and 14 (2-Ace)
+            if ((int)cardValue > 1 && (int)cardValue < 15)
+            this.Value = cardValue;
             else
-                throw new ArgumentException("The card value must be one of the following: 1,2,3,4,5,6,7,8,9,10,J,Q,K,A",nameof(cardValue));
+                throw new ArgumentException("The card value must be one of the following: 2,3,4,5,6,7,8,9,10,J,Q,K,A",nameof(cardValue));
 
             //Cards can only have their suit specified by d, s, c, or h
-            if (suit == "d" || suit == "s" || suit == "c" || suit == "h")
+            if (suit == CardSuit.Diamonds || suit == CardSuit.Spades || suit == CardSuit.Clubs || suit == CardSuit.Hearts)
                 this.Suit = suit;
             else
                 throw new ArgumentException("The card suit must be one of the following: d,s,c,h", nameof(suit));
@@ -25,15 +25,16 @@ namespace CardSort
 
         public override string ToString()
         {
-            return CardValue.ToString() + Suit;
+            int cardValueAsInt = (int)Value;
+            return cardValueAsInt.ToString() + (char)Suit;
         }
 
-        public int GetCardValue()
+        public CardValue GetCardValue()
         {
-            return CardValue;
+            return Value;
         }
 
-        public string GetSuit()
+        public CardSuit GetSuit()
         {
             return Suit;
         }
