@@ -6,8 +6,10 @@ using System.Text;
 
 namespace CardSort
 {
+    //Helper class that essentially runs the program. Allows a user to input their deck of cards and then outputs the sorted list
     public class Helper
     {
+        //Runs the program in the correct order from getting a users input, to checking if the input is correct, and outputting the correct order of the deck
         public void Play()
         {
             List<string> tempCardList = new List<string>();
@@ -48,6 +50,7 @@ namespace CardSort
             }
         }
 
+        //Gets the users deck of cards and returns it as a list of cards. If the program is being ran as a unit test then a test string of cards will be used instead of user input
         public List<string> GetUserInput(string test=null)
         {
             string cardsToSeperate;
@@ -77,6 +80,7 @@ namespace CardSort
             return new List<string>(); //If the program makes it here then there was an invalid card
         }
 
+        //Checks to see if the cards entered are all valid cards
         private bool ValidInputCheck(List<string> inputList)
         {
             //Check all of the elements in the list to see if they are valid
@@ -146,6 +150,7 @@ namespace CardSort
             return true;
         }
 
+        //Creates a list of Card objects from the list of cards in a string
         public IList<ICard> CreateListOfCards(List<string> tempCardList)
         {
             IList<ICard> listOfCards = new List<ICard>();

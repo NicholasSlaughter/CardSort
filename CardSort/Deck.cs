@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CardSort
 {
+    //A deck of cards class that holds a list of cards and allows for the list of cards to be sorted
     public class Deck : IDeck
     {
         public IList<ICard> Cards { get; set; }
@@ -16,15 +17,16 @@ namespace CardSort
             this.Cards = cards;
         }
 
+        //The string representation of the deck of cards needs to be in valid with the requirements for the program
         public override string ToString()
         {
-            //Build a string that will represent how the deck of cards will be output to the console window
+            //Build a string that will represent how the deck of cards should be look as a string
             StringBuilder sb = new StringBuilder();
 
             //For each card in cards append a card to the string builder
             foreach (Card card in Cards)
             {
-                //If the value is above 10 then we need to add change its value to J, Q, K, or A to because that is the proper output. EX: 11d becomes Jd
+                //If the value is above 10 then we need to change its value to J, Q, K, or A because that is the proper output. EX: 11d becomes Jd
                 if (card.GetCardValue() > CardValue.Ten)
                 {
                     if (card.GetCardValue() == CardValue.Jack)
@@ -44,6 +46,7 @@ namespace CardSort
             return sb.ToString(); //The proper output string has been built so return
         }
 
+        //The deck of cards needs to be sorted in a specific way. Sorted by the following suit order diamonds, spades, clubs, hearts and then ordered from lowest to highest card value (2-Ace)
         public void Sort()
         {
             IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardValue()); //Order the list of Cards by suit and then buy card value

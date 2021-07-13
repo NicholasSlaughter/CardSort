@@ -4,6 +4,7 @@ using System.Text;
 
 namespace CardSort
 {
+    //A Card class that holds the value and suit of a card
     public class Card : ICard
     {
         public CardValue Value { get; private set; }

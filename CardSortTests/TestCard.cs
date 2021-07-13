@@ -4,6 +4,7 @@ using CardSort;
 
 namespace CardSortTests
 {
+    //Tests the functionality of the Card class
     public class TestCard
     {
         [Fact]

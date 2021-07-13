@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace CardSortTests
 {
+    //Tests the functionality of the Deck class
     public class TestDeck
     {
         [Fact]
