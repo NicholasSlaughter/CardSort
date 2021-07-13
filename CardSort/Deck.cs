@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CardSort
 {
+    //A deck of cards class that holds a list of cards and allows for the list of cards to be sorted
     public class Deck : IDeck
     {
         public IList<ICard> Cards { get; set; }
@@ -16,61 +17,66 @@ namespace CardSort
             this.Cards = cards;
         }
 
+        //The string representation of the deck of cards needs to be in valid with the requirements for the program
         public override string ToString()
         {
+            //Build a string that will represent how the deck of cards should look as a string
             StringBuilder sb = new StringBuilder();
 
+            //For each card in cards append a card to the string builder
             foreach (Card card in Cards)
             {
-                if (card.GetCardValue() > 10)
+                //If the value is above 10 then we need to change its value to J, Q, K, or A because that is the proper output. EX: 11d becomes Jd
+                if (card.GetCardValue() > CardValue.Ten)
                 {
-                    if (card.GetCardValue() == 11)
-                        sb.Append("J" + card.GetSuit());
-                    if (card.GetCardValue() == 12)
-                        sb.Append("Q" + card.GetSuit());
-                    if (card.GetCardValue() == 13)
-                        sb.Append("K" + card.GetSuit());
-                    if (card.GetCardValue() == 14)
-                        sb.Append("A" + card.GetSuit());
-                    sb.Append("\n\n");
-                    continue;
+                    if (card.GetCardValue() == CardValue.Jack)
+                        sb.Append("J" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
+                    if (card.GetCardValue() == CardValue.Queen)
+                        sb.Append("Q" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
+                    if (card.GetCardValue() == CardValue.King)
+                        sb.Append("K" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
+                    if (card.GetCardValue() == CardValue.Ace)
+                        sb.Append("A" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
+                    sb.Append("\n"); //Add a new line because it looks nicer when every card is on a new line
+                    continue; //If the card value was above 10 then we already added the card to the string builder so we want to continue to the next card in the list
                 }
-                sb.Append(card.ToString());
-                sb.Append("\n\n");
+                sb.Append(card.ToString() + " - " + card.GetCardValue() + " of " + card.GetSuit()); //Add the card to the string builder
+                sb.Append("\n");
             }
-
-            sb.Remove(sb.Length - 2, 2);
-            return sb.ToString();
+            return sb.ToString(); //The proper output string has been built so return
         }
 
+        //The deck of cards needs to be sorted in a specific way. Sorted by the following suit order diamonds, spades, clubs, hearts and then ordered from lowest to highest card value (2-Ace)
         public void Sort()
         {
-            IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardValue());
+            IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardValue()); //Order the list of Cards by suit and then buy card value
             IList<ICard> deckOfCards = sortedListOfCards.ToList();
-            IList<ICard> listOfDiamonds = new List<ICard>();
+            IList<ICard> listOfDiamonds = new List<ICard>(); //OrderBy does not order the suit to how the program should work so we need to make temp lists for all of the suit of cards to go into
             IList<ICard> listOfSpades = new List<ICard>();
             IList<ICard> listOfClubs = new List<ICard>();
             IList<ICard> listOfHearts = new List<ICard>();
 
+            //For each card in the deck of cards add a card to the list of its suit
             foreach (Card card in deckOfCards)
             {
-                if (card.GetSuit() == "d")
+                if (card.GetSuit() == CardSuit.Diamonds)
                     listOfDiamonds.Add(card);
-                if (card.GetSuit() == "s")
+                if (card.GetSuit() == CardSuit.Spades)
                     listOfSpades.Add(card);
-                if (card.GetSuit() == "c")
+                if (card.GetSuit() == CardSuit.Clubs)
                     listOfClubs.Add(card);
-                if (card.GetSuit() == "h")
+                if (card.GetSuit() == CardSuit.Hearts)
                     listOfHearts.Add(card);
             }
 
+            //Clear the deck of cards and then add to the deck of cards in order of the proper order the program should have i.e. diamonds, spades, clubs, hearts
             deckOfCards.Clear();
             ((List<ICard>)deckOfCards).AddRange(listOfDiamonds);
             ((List<ICard>)deckOfCards).AddRange(listOfSpades);
             ((List<ICard>)deckOfCards).AddRange(listOfClubs);
             ((List<ICard>)deckOfCards).AddRange(listOfHearts);
 
-            Cards = deckOfCards;
+            Cards = deckOfCards; //Set the list of Cards to the ordered deck of cards
         }
     }
 }

@@ -1,5 +1,18 @@
 ﻿using System;
 
+/// <summary>
+/// Author: Nicholas Slaughter
+///Date Created: 7/12/2021
+///Date Last Modified: 7/12/2021
+///Purpose: Coding Challenge For Intel
+///Description: This program allows a user to input a deck of cards and have a sorted version of the deck of cards be output to the screen.
+///The deck of cards is sorted by suit first in the order of diamonds, spades, clubs, hearts and then by value from 2-Ace. The program only
+///allows the user to input a card as its numerical value followed by a single character representing the suit (i.e. 2d is the same as the 
+///2 of diamonds). If the user wants to have a face card in their deck of cards it must be represented as J, Q, K, or A (i.e. Jd is the same
+///as the Jack of diamonds). Once the users deck of cards has been sorted they will be asked if they would like to sort another deck of cards.
+///If the user enters 'Y' they will go again and if they enter 'N' the program will end.
+/// </summary>
+
 namespace CardSort
 {
     class Program
@@ -7,32 +20,8 @@ namespace CardSort
         static void Main(string[] args)
         {
             Helper h = new Helper();
-            string continu = "a";
-            string response;
-
-            //The program will continue to run untill the user wants to end the program
-            while (continu[0] != 'n')
-            {
-                h.Play(); //Execute the card sort functionality
-
-                //Check to see if the user wants to sort another deck of cards
-                response = "a";
-                while (response != "g")
-                {
-                    Console.Write("Would you like to sort another deck of cards? (Y/N): ");
-                    response = Console.ReadLine().ToLower();
-                    if (response[0] == 'y' || response[0] == 'n')
-                    {
-                        //If the user input a valid response then set continue to either y or n and exit the nested while loop
-                        continu = response;
-                        response = "g";
-                        if(continu[0] == 'y')
-                            Console.WriteLine(""); //Seperates previous card sorts by a new line space
-                    }
-                    else
-                        Console.WriteLine("ERROR: You can only enter Y or N for your response!"); //If the user input any other string that does not start with y or n then tell the user and prompt them to enter an answer again
-                }
-            }
+            h.Play();
+            Console.WriteLine("Goodbye");
         }
     }
 }
