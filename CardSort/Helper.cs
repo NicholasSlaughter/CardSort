@@ -96,7 +96,7 @@ namespace CardSort
                         {
                             if (element[2] == 'd' || element[2] == 's' || element[2] == 'c' || element[2] == 'h') //Cards must have a suit that is specified by d, s, c, or h
                             {
-                                continue;
+                                continue; //The element is valid so continue to the next element
                             }
                             else
                                 Console.WriteLine("ERROR: cards can only have the following characters for a suit: d, s, c, h" +
@@ -115,7 +115,7 @@ namespace CardSort
                         {
                             if (element[1] == 'd' || element[1] == 's' || element[1] == 'c' || element[1] == 'h') //Cards must have a suit that is specified by d, s, c, or h
                             {
-                                continue;
+                                continue; //The element is valid so continue to the next element
                             }
                             else
                                 Console.WriteLine("ERROR: cards can only have the following characters for a suit: d, s, c, h" +
@@ -130,7 +130,7 @@ namespace CardSort
                 }
                 else
                 {
-                    //A card was either and empty string or it had more than 3 characters so let the user know of the error and return false
+                    //A card was either an empty string or it had more than 3 characters so let the user know of the error and return false
                     if (element == "")
                     {
                         Console.WriteLine("ERROR: A card has to have a value and a suit");
@@ -150,12 +150,12 @@ namespace CardSort
             return true;
         }
 
-        //Creates a list of Card objects from the list of cards in a string
+        //Creates a list of Card objects from the string list of cards
         public IList<ICard> CreateListOfCards(List<string> tempCardList)
         {
             IList<ICard> listOfCards = new List<ICard>();
 
-            //foreach card in the temporary card list make a card object and add it to the list of cards
+            //foreach card in the temporary card list make a Card object and add it to the list of Card objects
             foreach (string card in tempCardList)
             {
                 //If a card value is j, q, k, or a then we need to set its value to 11-14 which helps with the sorting of the cards

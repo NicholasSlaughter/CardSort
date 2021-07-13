@@ -20,7 +20,7 @@ namespace CardSort
         //The string representation of the deck of cards needs to be in valid with the requirements for the program
         public override string ToString()
         {
-            //Build a string that will represent how the deck of cards should be look as a string
+            //Build a string that will represent how the deck of cards should look as a string
             StringBuilder sb = new StringBuilder();
 
             //For each card in cards append a card to the string builder
