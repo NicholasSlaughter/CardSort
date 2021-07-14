@@ -17,7 +17,7 @@ namespace CardSort
             this.Cards = cards;
         }
 
-        //The string representation of the deck of cards needs to be in valid with the requirements for the program
+        //The string representation of the deck of cards needs to be valid with the requirements for the program
         public override string ToString()
         {
             //Build a string that will represent how the deck of cards should look as a string
