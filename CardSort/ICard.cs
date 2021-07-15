@@ -7,7 +7,8 @@ namespace CardSort
     public interface ICard
     {
         public string ToString();
-        public CardValue GetCardValue();
+        public string GetCardValue();
+        public string GetCardValueName();
         public CardSuit GetSuit();
     }
 }

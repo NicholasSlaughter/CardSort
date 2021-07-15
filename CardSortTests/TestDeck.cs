@@ -15,16 +15,16 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(CardValue.Two,CardSuit.Diamonds),
-                    new Card(CardValue.Three,CardSuit.Clubs),
-                    new Card(CardValue.Ace,CardSuit.Hearts),
-                    new Card(CardValue.Nine,CardSuit.Spades),
+                    new Card(ValueOfCards.Two,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Three,CardSuit.Clubs),
+                    new Card(ValueOfCards.Ace,CardSuit.Hearts),
+                    new Card(ValueOfCards.Nine,CardSuit.Spades),
                 });
                 int validCard = 0;
 
                 foreach (Card card in deckOfCards.Cards)
                 {
-                    if (card.ToString() == "2d" || card.ToString() == "3c" || card.ToString() == "14h" || card.ToString() == "9s")
+                    if (card.ToString() == "2d" || card.ToString() == "3c" || card.ToString() == "Ah" || card.ToString() == "9s")
                     {
                         validCard += 1;
                     }
@@ -47,7 +47,7 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card((CardValue)15,CardSuit.Diamonds),
+                    new Card("15",CardSuit.Diamonds),
                 });
 
                 Assert.True(false);
@@ -78,10 +78,10 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(CardValue.Jack,CardSuit.Diamonds),
-                    new Card(CardValue.Queen,CardSuit.Clubs),
-                    new Card(CardValue.King,CardSuit.Hearts),
-                    new Card(CardValue.Ace,CardSuit.Spades),
+                    new Card(ValueOfCards.Jack,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Queen,CardSuit.Clubs),
+                    new Card(ValueOfCards.King,CardSuit.Hearts),
+                    new Card(ValueOfCards.Ace,CardSuit.Spades),
                 });
                 string expected = "Jd - Jack of Diamonds\nQc - Queen of Clubs\nKh - King of Hearts\nAs - Ace of Spades\n";
                 string actual = deckOfCards.ToString();
@@ -101,10 +101,10 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(CardValue.Jack,CardSuit.Diamonds),
-                    new Card(CardValue.Queen,CardSuit.Clubs),
-                    new Card(CardValue.King,CardSuit.Hearts),
-                    new Card(CardValue.Ace,CardSuit.Spades),
+                    new Card(ValueOfCards.Jack,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Queen,CardSuit.Clubs),
+                    new Card(ValueOfCards.King,CardSuit.Hearts),
+                    new Card(ValueOfCards.Ace,CardSuit.Spades),
                 });
                 string notExpected = "11d\n12c\n13h\n14s\n";
                 string actual = deckOfCards.ToString();
@@ -125,16 +125,16 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(CardValue.Seven,CardSuit.Diamonds),
-                    new Card(CardValue.Three,CardSuit.Hearts),
-                    new Card(CardValue.Five,CardSuit.Diamonds),
-                    new Card(CardValue.Three,CardSuit.Spades),
-                    new Card(CardValue.Jack,CardSuit.Diamonds),
-                    new Card(CardValue.Queen,CardSuit.Clubs),
-                    new Card(CardValue.King,CardSuit.Hearts),
-                    new Card(CardValue.Ace,CardSuit.Spades),
+                    new Card(ValueOfCards.Ace,CardSuit.Hearts),
+                    new Card(ValueOfCards.Three,CardSuit.Hearts),
+                    new Card(ValueOfCards.Five,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Three,CardSuit.Spades),
+                    new Card(ValueOfCards.Jack,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Queen,CardSuit.Clubs),
+                    new Card(ValueOfCards.King,CardSuit.Hearts),
+                    new Card(ValueOfCards.Seven,CardSuit.Diamonds),
                 });
-                string expected = "5d - Five of Diamonds\n7d - Seven of Diamonds\nJd - Jack of Diamonds\n3s - Three of Spades\nAs - Ace of Spades\nQc - Queen of Clubs\n3h - Three of Hearts\nKh - King of Hearts\n";
+                string expected = "5d - Five of Diamonds\n7d - Seven of Diamonds\nJd - Jack of Diamonds\n3s - Three of Spades\nQc - Queen of Clubs\n3h - Three of Hearts\nKh - King of Hearts\nAh - Ace of Hearts\n";
 
                 deckOfCards.Sort();
                 string actual = deckOfCards.ToString();
@@ -155,14 +155,14 @@ namespace CardSortTests
             {
                 Deck deckOfCards = new Deck(new List<ICard>()
                 {
-                    new Card(CardValue.Seven,CardSuit.Diamonds),
-                    new Card(CardValue.Three,CardSuit.Hearts),
-                    new Card(CardValue.Five,CardSuit.Diamonds),
-                    new Card(CardValue.Three,CardSuit.Spades),
-                    new Card(CardValue.Jack,CardSuit.Diamonds),
-                    new Card(CardValue.Queen,CardSuit.Clubs),
-                    new Card(CardValue.King,CardSuit.Hearts),
-                    new Card(CardValue.Ace,CardSuit.Spades),
+                    new Card(ValueOfCards.Seven,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Three,CardSuit.Hearts),
+                    new Card(ValueOfCards.Five,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Three,CardSuit.Spades),
+                    new Card(ValueOfCards.Jack,CardSuit.Diamonds),
+                    new Card(ValueOfCards.Queen,CardSuit.Clubs),
+                    new Card(ValueOfCards.King,CardSuit.Hearts),
+                    new Card(ValueOfCards.Ace,CardSuit.Spades),
                 });
                 string expected = "5d\n7d\n11d\n3s\n14s\n12c\n3h\n13h\n";
 

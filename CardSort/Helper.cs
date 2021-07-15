@@ -9,6 +9,13 @@ namespace CardSort
     //Helper class that essentially runs the program. Allows a user to input their deck of cards and then outputs the sorted list
     public class Helper
     {
+        private IDictionary<char,int> _faceCardValueDict;
+
+        public Helper(Dictionary<char,int> faceCardValueDict=null)
+        {
+            _faceCardValueDict = faceCardValueDict;
+        }
+
         //Runs the program in the correct order from getting a users input, to checking if the input is correct, and outputting the correct order of the deck
         public void Play()
         {
@@ -105,7 +112,7 @@ namespace CardSort
                         {
                             digits += i;
                         }
-                        foreach (int i in Enum.GetValues(typeof(CardValue)))
+                        foreach (int i in Enum.GetValues(typeof(FaceCardValue)))
                         {
                             enumValues.Add(i.ToString());
                         }
@@ -216,21 +223,14 @@ namespace CardSort
                 //If a card value is j, q, k, or a then we need to set its value to 11-14 which helps with the sorting of the cards
                 if (!Int32.TryParse(card[0].ToString(), out int num))
                 {
-                    if (card[0] == 'j')
-                        listOfCards.Add(new Card(CardValue.Jack, (CardSuit)card[1]));
-                    if (card[0] == 'q')
-                        listOfCards.Add(new Card(CardValue.Queen, (CardSuit)card[1]));
-                    if (card[0] == 'k')
-                        listOfCards.Add(new Card(CardValue.King, (CardSuit)card[1]));
-                    if (card[0] == 'a')
-                        listOfCards.Add(new Card(CardValue.Ace, (CardSuit)card[1]));
+                    listOfCards.Add(new Card(card[0].ToString(), (CardSuit)card[1])); //Need to figure out to get card value without indexing array
                     continue;
                 }
 
                 if (card.Length == 2)
-                    listOfCards.Add(new Card((CardValue)Int32.Parse(card[0].ToString(), NumberStyles.Integer), (CardSuit)card[1]));
+                    listOfCards.Add(new Card(card[0].ToString(), (CardSuit)card[1]));
                 if (card.Length == 3) //The face value of the card is 10
-                    listOfCards.Add(new Card((CardValue)Int32.Parse(card[0].ToString() + card[1].ToString(), NumberStyles.Integer), (CardSuit)card[2]));
+                    listOfCards.Add(new Card(card[0].ToString() + card[1].ToString(), (CardSuit)card[2]));
             }
 
             return listOfCards; //Successfully created a list of card objects from the cards a user entered

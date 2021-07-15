@@ -26,21 +26,7 @@ namespace CardSort
             //For each card in cards append a card to the string builder
             foreach (Card card in Cards)
             {
-                //If the value is above 10 then we need to change its value to J, Q, K, or A because that is the proper output. EX: 11d becomes Jd
-                if (card.GetCardValue() > CardValue.Ten)
-                {
-                    if (card.GetCardValue() == CardValue.Jack)
-                        sb.Append("J" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
-                    if (card.GetCardValue() == CardValue.Queen)
-                        sb.Append("Q" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
-                    if (card.GetCardValue() == CardValue.King)
-                        sb.Append("K" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
-                    if (card.GetCardValue() == CardValue.Ace)
-                        sb.Append("A" + (char)card.GetSuit() + " - " + card.GetCardValue() + " of " + card.GetSuit());
-                    sb.Append("\n"); //Add a new line because it looks nicer when every card is on a new line
-                    continue; //If the card value was above 10 then we already added the card to the string builder so we want to continue to the next card in the list
-                }
-                sb.Append(card.ToString() + " - " + card.GetCardValue() + " of " + card.GetSuit()); //Add the card to the string builder
+                sb.Append(card.ToString() + " - " + card.GetCardValueName() + " of " + card.GetSuit()); //Add the card to the string builder
                 sb.Append("\n");
             }
             return sb.ToString(); //The proper output string has been built so return
@@ -49,7 +35,19 @@ namespace CardSort
         //The deck of cards needs to be sorted in a specific way. Sorted by the following suit order diamonds, spades, clubs, hearts and then ordered from lowest to highest card value (2-Ace)
         public void Sort()
         {
-            IEnumerable<ICard> sortedListOfCards = Cards.OrderBy(p => p.GetSuit()).ThenBy(p => p.GetCardValue()); //Order the list of Cards by suit and then buy card value
+            var tempCards = Cards;
+
+            //Need to go through each card in the deck and replace the face cards with integer values to make sorting easier
+            foreach(Card card in tempCards)
+            {
+                if(!int.TryParse(card.GetCardValue(),out int result))
+                {
+                    int numValue = (int)Enum.Parse(typeof(FaceCardValue), card.GetCardValueName());
+                    card.Value = numValue.ToString();
+                }
+            }
+
+            IEnumerable<ICard> sortedListOfCards = tempCards.OrderBy(p => p.GetSuit()).ThenBy(p => Int32.Parse(p.GetCardValue())); //Order the list of Cards by suit and then buy card value
             IList<ICard> deckOfCards = sortedListOfCards.ToList();
             IList<ICard> listOfDiamonds = new List<ICard>(); //OrderBy does not order the suit to how the program should work so we need to make temp lists for all of the suit of cards to go into
             IList<ICard> listOfSpades = new List<ICard>();
@@ -57,16 +55,17 @@ namespace CardSort
             IList<ICard> listOfHearts = new List<ICard>();
 
             //For each card in the deck of cards add a card to the list of its suit
+            //TODO: Reduce redundence
             foreach (Card card in deckOfCards)
             {
                 if (card.GetSuit() == CardSuit.Diamonds)
-                    listOfDiamonds.Add(card);
+                    listOfDiamonds.Add(GetProperCardValues(card)); //Card is not face card so add the card to the list of diamonds immediately
                 if (card.GetSuit() == CardSuit.Spades)
-                    listOfSpades.Add(card);
+                    listOfSpades.Add(GetProperCardValues(card));
                 if (card.GetSuit() == CardSuit.Clubs)
-                    listOfClubs.Add(card);
+                    listOfClubs.Add(GetProperCardValues(card));
                 if (card.GetSuit() == CardSuit.Hearts)
-                    listOfHearts.Add(card);
+                    listOfHearts.Add(GetProperCardValues(card));
             }
 
             //Clear the deck of cards and then add to the deck of cards in order of the proper order the program should have i.e. diamonds, spades, clubs, hearts
@@ -77,6 +76,17 @@ namespace CardSort
             ((List<ICard>)deckOfCards).AddRange(listOfHearts);
 
             Cards = deckOfCards; //Set the list of Cards to the ordered deck of cards
+        }
+
+        private Card GetProperCardValues(Card card)
+        {
+            if (Enum.IsDefined(typeof(FaceCardValue), Int32.Parse(card.GetCardValue()))) //See if card is a face card given a face card value
+            {
+                string faceCardToRetrieve = Enum.Parse(typeof(FaceCardValue), card.GetCardValue()).ToString();
+                card.Value = ValueOfCards.GetCardValueByPropName(faceCardToRetrieve); //Replace face card integer value with string value. Ex: 11d -> jd
+                return card;
+            }
+            return card;
         }
     }
 }

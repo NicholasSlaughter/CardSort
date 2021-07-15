@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Author: Nicholas Slaughter
@@ -19,7 +20,14 @@ namespace CardSort
     {
         static void Main(string[] args)
         {
-            Helper h = new Helper();
+            Dictionary<char, int> faceCardValueDict = new Dictionary<char, int>();
+
+            foreach(int i in Enum.GetValues(typeof(FaceCardValue)))
+            {
+
+            }
+
+            Helper h = new Helper(faceCardValueDict);
             h.Play();
             Console.WriteLine("Goodbye");
         }
