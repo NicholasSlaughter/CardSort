@@ -43,12 +43,12 @@ namespace CardSort
             {
                 if(!int.TryParse(card.GetCardValue(),out int result))
                 {
-                    int numValue = (int)Enum.Parse(typeof(FaceCardValue), card.GetCardValueName());
+                    int numValue = FaceCardValue.GetCardValueByPropName(card.GetCardValueName());
 
                     //If there is a face card that is equivalent to a number card we need to be able to only convert the exact occurance of that face card back to normal and leave the number cards alone
-                    if (!faceCardValueConversion.ContainsKey(numValue.ToString() + (char)card.GetSuit()))
-                        faceCardValueConversion.Add(numValue.ToString() + (char)card.GetSuit(), 0);
-                    faceCardValueConversion[numValue.ToString() + (char)card.GetSuit()] += 1; //Increment the occurance of the face card by 1
+                    if (!faceCardValueConversion.ContainsKey(card.ToString()))
+                        faceCardValueConversion.Add(card.ToString(), 0);
+                    faceCardValueConversion[card.ToString()] += 1; //Increment the occurance of the face card by 1
 
                     card.Value = numValue.ToString();
                 }
@@ -87,14 +87,27 @@ namespace CardSort
         //If a card is a face card return with its proper card value (letter)
         private Card GetProperCardValue(Card card, Dictionary<string, int> faceCardValueConversion)
         {
-            //See if the card value matches the value of a face card and see if that face card has cards that haven't been converted back yet
-            if (faceCardValueConversion.GetValueOrDefault(card.ToString()) != 0) 
+            //See if the card value matches the value of a face card
+            if (FaceCardValue.Contains(card.Value))
             {
-
-                faceCardValueConversion[card.ToString()] -= 1; //Reduce the occurance of that face card
-                string faceCardToRetrieve = Enum.Parse(typeof(FaceCardValue), card.GetCardValue()).ToString();
-                card.Value = ValueOfCards.GetCardValueByPropName(faceCardToRetrieve); //Replace face card integer value with string value. Ex: 11d -> jd
-                return card;
+                //Get all occurances of face cards that have the same suit to as the card passed in
+                var listOfMatchSuits = faceCardValueConversion.Keys.Where(c => c[^1].Equals((char)card.Suit));
+                foreach (string i in listOfMatchSuits)
+                {
+                    string cardValue = i.Remove(i.Length - 1, 1).ToLower();
+                    var faceCardValue = FaceCardValue.GetCardValueByPropName(ValueOfCards.GetCardName(cardValue)).ToString();
+                    //If the cards value matches a Face Card Value then replace that card with its proper value (letter)
+                    if (card.Value == faceCardValue)
+                    {
+                        //If the occurance of that card is not zero then we still need to convert that card back to normal
+                        if (faceCardValueConversion[i] != 0)
+                        {
+                            faceCardValueConversion[i] -= 1; //Reduce the occurance of that face card
+                            card.Value = cardValue;//Replace face card integer value with string value. Ex: 11d -> jd
+                            return card;
+                        }
+                    }
+                }
             }
             return card;
         }

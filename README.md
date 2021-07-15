@@ -13,7 +13,7 @@ as the Jack of diamonds). Once the users deck of cards has been sorted they will
 If the user enters 'Y' they will go again and if they enter 'N' the program will end.
 
 Tests:
-There are 45 tests for this program. All functionality of the program is tested within these 45 tests. All tests pass. Tests finish in about 43ms.
+There are 55 tests for this program. All functionality of the program is tested within these 55 tests. All tests pass. Tests finish in about 51ms.
 
 How To Run From Executable:
 1. Open the Card Sort File
@@ -78,7 +78,7 @@ Note: You Must Have Docker Installed On Your System To Run My Docker Image
 2. Change your working directory to the second CardSort directory
     a. Example: cd C:\CardSort\CardSort
 3. Execute the following command to run the docker container:
-    a. docker run -it --rm nicholasslaughter/card_sort:v3
+    a. docker run -it --rm nicholasslaughter/card_sort:v4
 4. Enter cards by face value followed by suit and seperated by a comma
   a. Valid face values: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
   b. Valid suit: d, s, c, h
@@ -112,4 +112,4 @@ Assumptions Made:
 6. Creating a dockerfile was okay to do
 
 Bugs:
-1. If there is multiple face cards with the same value all of those face cards will get converted into the same face card
+None that I know of
