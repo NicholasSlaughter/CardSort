@@ -4,6 +4,7 @@ using System.Text;
 
 namespace CardSort
 {
+    //TODO: Add unit testing for Value Of Cards, add check for when their are multiple cards that have the same value including face cards
     public static class ValueOfCards
     {
         public static string Two { get { return "2"; } }
@@ -55,7 +56,8 @@ namespace CardSort
                     return prop.GetMethod.Invoke(typeof(ValueOfCards), null).ToString();
                 }
             }
-            throw new Exception("Property Name Does Not Have A Value Associated With It");
+
+            return string.Empty;
         }
     }
 }

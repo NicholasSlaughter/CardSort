@@ -90,22 +90,22 @@ namespace CardSort
                 //A valid card is at least 2 characters and at most 3 characters
                 if (card.Length > 1 && card.Length < 4)
                 {
-                    int temp = (int)card[^1];
                     //Check to see if the last character in the card is a valid card suit
-                    if (Enum.IsDefined(typeof(CardSuit),temp))
+                    if (Enum.IsDefined(typeof(CardSuit), (int)card[^1]))
                     {
                         //need to check if all but the last character in the card is a valid card value
                         if (ValueOfCards.Contains(card.Remove(card.Length - 1, 1)))
                             continue;
                         else
                             Console.WriteLine("ERROR: Card value must be between 2-10 or be J, Q, K, or A.\n" +
-                                "Card that caused Error: " + card);
+                                "Card that caused Error: " + card); //Output all valid Card Values from ValueOfCards class
 
                         return false; //If the program makes it here then a card did not meet the criteria of what makes a valid card and we return false
                     }
                     else
                     {
-                        Console.WriteLine("ERROR: The suit of the card can only be specified after the value of the card has been give");
+                        //Output all valid suits from CardSuit enum
+                        Console.WriteLine("ERROR: The suit of the card can only be specified after the value of the card has been give and is one of the following letters: d, s, c, or h");
                         Console.WriteLine("Not Valid Cards: c3, d10, 1s0");
                         Console.WriteLine("Valid Cards: 3c, Js, 2d, 10h, Kh, 8s, Ac, 4h");
                         Console.WriteLine("Card that caused the error: " + card);
@@ -142,17 +142,19 @@ namespace CardSort
             //foreach card in the temporary card list make a Card object and add it to the list of Card objects
             foreach (string card in tempCardList)
             {
+                string value = card.Remove(card.Length - 1, 1);
+                char suit = card[^1];
                 //If a card value is j, q, k, or a then we need to set its value to 11-14 which helps with the sorting of the cards
-                if (!Int32.TryParse(card[0].ToString(), out int num))
+                if (!Int32.TryParse(value, out int num))
                 {
-                    listOfCards.Add(new Card(card[0].ToString(), (CardSuit)card[1])); //Need to figure out to get card value without indexing array
+                    listOfCards.Add(new Card(value, (CardSuit)suit)); //Need to figure out to get card value without indexing array
                     continue;
                 }
 
                 if (card.Length == 2)
-                    listOfCards.Add(new Card(card[0].ToString(), (CardSuit)card[1]));
+                    listOfCards.Add(new Card(value, (CardSuit)suit));
                 if (card.Length == 3) //The face value of the card is 10
-                    listOfCards.Add(new Card(card[0].ToString() + card[1].ToString(), (CardSuit)card[2]));
+                    listOfCards.Add(new Card(value, (CardSuit)suit));
             }
 
             return listOfCards; //Successfully created a list of card objects from the cards a user entered
