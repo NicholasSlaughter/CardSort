@@ -11,17 +11,17 @@ namespace CardSort
         public CardSuit Suit { get; set; }
         public Card(string cardValue, CardSuit suit)
         {
-            //Cards can only have a value between 1 and 15 (2-Ace)
+            //Cards can only have a valid card value
             if (ValueOfCards.Contains(cardValue))
                 this.Value = cardValue;
             else
-                throw new ArgumentException("The card value must be one of the following: 2,3,4,5,6,7,8,9,10,J,Q,K,A",nameof(cardValue));
+                throw new ArgumentException("Card did not have a valid card value",nameof(cardValue));
 
-            //Cards can only have their suit specified by d, s, c, or h
-            if (suit == CardSuit.Diamonds || suit == CardSuit.Spades || suit == CardSuit.Clubs || suit == CardSuit.Hearts)
+            //Cards can only have valid card suits
+            if (Enum.IsDefined(typeof(CardSuit),suit))
                 this.Suit = suit;
             else
-                throw new ArgumentException("The card suit must be one of the following: d,s,c,h", nameof(suit));
+                throw new ArgumentException("Card did not have a valid card suit", nameof(suit));
         }
 
         public override string ToString()

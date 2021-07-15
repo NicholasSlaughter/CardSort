@@ -65,13 +65,13 @@ namespace CardSort
             foreach (Card card in deckOfCards)
             {
                 if (card.GetSuit() == CardSuit.Diamonds)
-                    listOfDiamonds.Add(GetProperCardValues(card, faceCardValueConversion)); //Card is not face card so add the card to the list of diamonds immediately
+                    listOfDiamonds.Add(GetProperCardValue(card, faceCardValueConversion));
                 if (card.GetSuit() == CardSuit.Spades)
-                    listOfSpades.Add(GetProperCardValues(card, faceCardValueConversion));
+                    listOfSpades.Add(GetProperCardValue(card, faceCardValueConversion));
                 if (card.GetSuit() == CardSuit.Clubs)
-                    listOfClubs.Add(GetProperCardValues(card, faceCardValueConversion));
+                    listOfClubs.Add(GetProperCardValue(card, faceCardValueConversion));
                 if (card.GetSuit() == CardSuit.Hearts)
-                    listOfHearts.Add(GetProperCardValues(card, faceCardValueConversion));
+                    listOfHearts.Add(GetProperCardValue(card, faceCardValueConversion));
             }
 
             //Clear the deck of cards and then add to the deck of cards in order of the proper order the program should have i.e. diamonds, spades, clubs, hearts
@@ -84,7 +84,8 @@ namespace CardSort
             Cards = deckOfCards; //Set the list of Cards to the ordered deck of cards
         }
 
-        private Card GetProperCardValues(Card card, Dictionary<string, int> faceCardValueConversion)
+        //If a card is a face card return with its proper card value (letter)
+        private Card GetProperCardValue(Card card, Dictionary<string, int> faceCardValueConversion)
         {
             //See if the card value matches the value of a face card and see if that face card has cards that haven't been converted back yet
             if (faceCardValueConversion.GetValueOrDefault(card.ToString()) != 0) 

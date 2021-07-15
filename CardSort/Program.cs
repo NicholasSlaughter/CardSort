@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Author: Nicholas Slaughter
 ///Date Created: 7/12/2021
-///Date Last Modified: 7/13/2021
+///Date Last Modified: 7/15/2021
 ///Purpose: Coding Challenge For Intel
 ///Description: This program allows a user to input a deck of cards and have a sorted version of the deck of cards be output to the screen.
 ///The deck of cards is sorted by suit first in the order of diamonds, spades, clubs, hearts and then by value from 2-Ace. The program only

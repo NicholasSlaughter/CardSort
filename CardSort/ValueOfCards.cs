@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardSort
 {
-    //TODO: Add unit testing for Value Of Cards
+    //Static class that holds card values
     public static class ValueOfCards
     {
         public static string Two { get { return "2"; } }
@@ -20,7 +20,9 @@ namespace CardSort
         public static string Queen { get { return "q"; } }
         public static string King { get { return "k"; } }
         public static string Ace { get { return "a"; } }
-        internal static bool Contains(string stringToFind)
+
+        //Check to see if the string passed in matches any Card Value
+        public static bool Contains(string stringToFind)
         {
             foreach(var prop in typeof(ValueOfCards).GetProperties())
             {
@@ -32,7 +34,8 @@ namespace CardSort
             return false;
         }
 
-        internal static string GetCardName(string valueToFindPropName)
+        //Returns the name of a card given its value
+        public static string GetCardName(string valueToFindPropName)
         {
             foreach (var prop in typeof(ValueOfCards).GetProperties())
             {
@@ -46,7 +49,8 @@ namespace CardSort
             return string.Empty;
         }
 
-        internal static string GetCardValueByPropName(string propName)
+        //Returns the value of a card given its property name
+        public static string GetCardValueByPropName(string propName)
         {
             foreach (var prop in typeof(ValueOfCards).GetProperties())
             {
@@ -58,6 +62,19 @@ namespace CardSort
             }
 
             return string.Empty;
+        }
+
+        //Returns a list of all of the card values in the class
+        public static List<string> GetAllCardValues()
+        {
+            List<string> propValues = new List<string>();
+
+            foreach (var prop in typeof(ValueOfCards).GetProperties())
+            {
+                propValues.Add(prop.GetMethod.Invoke(typeof(ValueOfCards), null).ToString());
+            }
+
+            return propValues;
         }
     }
 }

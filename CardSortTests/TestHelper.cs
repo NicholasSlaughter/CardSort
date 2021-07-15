@@ -184,5 +184,56 @@ namespace CardSortTests
                 Assert.True(false);
             }
         }
+
+        [Fact]
+        public void GetListOfValidCardsForErrors_ValueError_ReturnsString()
+        {
+            try
+            {
+                var tempCard = "2b";
+                var validCardsToGet = "Value";
+                var outputType = Helper.GetListOfValidCardsForErrors(tempCard, validCardsToGet).GetType().ToString();
+                Assert.Equal("System.String", outputType);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
+        public void GetListOfValidCardsForErrors_SuitError_ReturnsString()
+        {
+            try
+            {
+                var tempCard = "2b";
+                var validCardsToGet = "Suit";
+                var outputType = Helper.GetListOfValidCardsForErrors(tempCard, validCardsToGet).GetType().ToString();
+                Assert.Equal("System.String", outputType);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
+        public void GetListOfValidCardsForErrors_NotValidError_ReturnsString()
+        {
+            try
+            {
+                var tempCard = "2b";
+                var validCardsToGet = "";
+                var actual = Helper.GetListOfValidCardsForErrors(tempCard, validCardsToGet);
+                Assert.Equal("ERROR: Not Valid Input For CreateListOfCards", actual);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Assert.True(false);
+            }
+        }
     }
 }

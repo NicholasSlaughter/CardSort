@@ -95,17 +95,17 @@ namespace CardSort
                     {
                         //need to check if all but the last character in the card is a valid card value
                         if (ValueOfCards.Contains(card.Remove(card.Length - 1, 1)))
-                            continue;
+                            continue; //Valid card so continue to the next card in the list
                         else
-                            Console.WriteLine("ERROR: Card value must be between 2-10 or be J, Q, K, or A.\n" +
-                                "Card that caused Error: " + card); //Output all valid Card Values from ValueOfCards class
+                            Console.WriteLine(GetListOfValidCardsForErrors(card, "Value")); //Output all valid Card Values from ValueOfCards class
 
                         return false; //If the program makes it here then a card did not meet the criteria of what makes a valid card and we return false
                     }
                     else
                     {
                         //Output all valid suits from CardSuit enum
-                        Console.WriteLine("ERROR: The suit of the card can only be specified after the value of the card has been give and is one of the following letters: d, s, c, or h");
+                        Console.WriteLine(GetListOfValidCardsForErrors(card, "Suit"));
+
                         Console.WriteLine("Not Valid Cards: c3, d10, 1s0");
                         Console.WriteLine("Valid Cards: 3c, Js, 2d, 10h, Kh, 8s, Ac, 4h");
                         Console.WriteLine("Card that caused the error: " + card);
@@ -158,6 +158,32 @@ namespace CardSort
             }
 
             return listOfCards; //Successfully created a list of card objects from the cards a user entered
+        }
+
+        //Returns the proper error containing all of the valid versions of the error
+        public static string GetListOfValidCardsForErrors(string card, string partOfCardToCheck)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (partOfCardToCheck == "Value")
+            {
+                //Return all valid card values
+                sb.Append("ERROR: Card value must be one of the following cards: ");
+                foreach (string cardValue in ValueOfCards.GetAllCardValues())
+                    sb.Append($"{cardValue.ToUpper()}, ");
+                sb.Remove(sb.Length - 2, 2);
+                sb.Append($"\nCard that caused Error: {card}");
+                return sb.ToString();
+            }
+            if(partOfCardToCheck == "Suit")
+            {
+                //Return all valid suits from CardSuit enum
+                sb.Append("ERROR: The suit of the card can only be specified after the value of the card has been give and is one of the following letters: ");
+                foreach (int i in Enum.GetValues(typeof(CardSuit)))
+                    sb.Append($"{(char)i}, ");
+                sb.Remove(sb.Length - 2, 2);
+                return sb.ToString();
+            }
+            return "ERROR: Not Valid Input For CreateListOfCards";
         }
     }
 }
