@@ -12,8 +12,8 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
-                Assert.Equal(CardValue.Two, cardToCreate.GetCardValue());
+                Card cardToCreate = new Card(ValueOfCards.Three, CardSuit.Diamonds);
+                Assert.Equal(ValueOfCards.Three, cardToCreate.GetCardValue());
             }
             catch (Exception e)
             {
@@ -22,11 +22,11 @@ namespace CardSortTests
             }
         }
         [Fact]
-        public void GetCardValue_CreateCardWithInvalidCardValue_ReturnsUnableToCreateCard()
+        public void GetCardValue_CreateCardWithInvalidValueOfCards_ReturnsUnableToCreateCard()
         {
             try
             {
-                Card cardToCreate = new Card((CardValue)16, CardSuit.Diamonds);
+                Card cardToCreate = new Card("16", CardSuit.Diamonds);
                 Assert.True(false);
             }
             catch (ArgumentException e)
@@ -39,7 +39,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Card cardToCreate = new Card(ValueOfCards.Two, CardSuit.Diamonds);
                 Assert.Equal(CardSuit.Diamonds, cardToCreate.GetSuit());
             }
             catch (Exception e)
@@ -53,7 +53,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(CardValue.Two, (CardSuit)'b');
+                Card cardToCreate = new Card(ValueOfCards.Two, (CardSuit)'b');
                 Assert.True(false);
             }
             catch (ArgumentException e)
@@ -66,7 +66,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Card cardToCreate = new Card(ValueOfCards.Two, CardSuit.Diamonds);
                 string expected = cardToCreate.ToString();
                 Assert.Equal("2d", cardToCreate.ToString());
             }
@@ -81,7 +81,7 @@ namespace CardSortTests
         {
             try
             {
-                Card cardToCreate = new Card(CardValue.Two, CardSuit.Diamonds);
+                Card cardToCreate = new Card(ValueOfCards.Two, CardSuit.Diamonds);
                 Assert.False("2c" == cardToCreate.ToString());
             }
             catch (Exception e)

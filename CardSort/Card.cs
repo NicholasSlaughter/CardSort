@@ -7,32 +7,38 @@ namespace CardSort
     //A Card class that holds the value and suit of a card
     public class Card : ICard
     {
-        public CardValue Value { get; private set; }
-        public CardSuit Suit { get; private set; }
-        public Card(CardValue cardValue, CardSuit suit)
+        public string Value { get; set; }
+        public CardSuit Suit { get; set; }
+        public Card(string cardValue, CardSuit suit)
         {
-            //Cards can only have a value between 1 and 15 (2-Ace)
-            if ((int)cardValue > 1 && (int)cardValue < 15)
+            //Cards can only have a valid card value
+            if (ValueOfCards.Contains(cardValue))
                 this.Value = cardValue;
             else
-                throw new ArgumentException("The card value must be one of the following: 2,3,4,5,6,7,8,9,10,J,Q,K,A",nameof(cardValue));
+                throw new ArgumentException("Card did not have a valid card value",nameof(cardValue));
 
-            //Cards can only have their suit specified by d, s, c, or h
-            if (suit == CardSuit.Diamonds || suit == CardSuit.Spades || suit == CardSuit.Clubs || suit == CardSuit.Hearts)
+            //Cards can only have valid card suits
+            if (Enum.IsDefined(typeof(CardSuit),suit))
                 this.Suit = suit;
             else
-                throw new ArgumentException("The card suit must be one of the following: d,s,c,h", nameof(suit));
+                throw new ArgumentException("Card did not have a valid card suit", nameof(suit));
         }
 
         public override string ToString()
         {
-            int cardValueAsInt = (int)Value;
-            return cardValueAsInt.ToString() + (char)Suit;
+            return Value.ToUpper() + (char)Suit;
         }
 
-        public CardValue GetCardValue()
+        public string GetCardValue()
         {
             return Value;
+        }
+
+        public string GetCardValueName()
+        {
+            if(ValueOfCards.GetCardName(Value) != "")
+                return ValueOfCards.GetCardName(Value);
+            throw new Exception("Card Value Was Not Associated With A Card Name");
         }
 
         public CardSuit GetSuit()
