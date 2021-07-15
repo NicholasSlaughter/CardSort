@@ -7,17 +7,11 @@ using System.Text;
 namespace CardSort
 {
     //Helper class that essentially runs the program. Allows a user to input their deck of cards and then outputs the sorted list
-    public class Helper
+    public static class Helper
     {
-        private IDictionary<char,int> _faceCardValueDict;
-
-        public Helper(Dictionary<char,int> faceCardValueDict=null)
-        {
-            _faceCardValueDict = faceCardValueDict;
-        }
 
         //Runs the program in the correct order from getting a users input, to checking if the input is correct, and outputting the correct order of the deck
-        public void Play()
+        public static void Play()
         {
             List<string> tempCardList = new List<string>();
             string continu = "a";
@@ -58,7 +52,7 @@ namespace CardSort
         }
 
         //Gets the users deck of cards and returns it as a list of cards. If the program is being ran as a unit test then a test string of cards will be used instead of user input
-        public List<string> GetUserInput(string test=null)
+        public static List<string> GetUserInput(string test=null)
         {
             string cardsToSeperate;
 
@@ -88,96 +82,24 @@ namespace CardSort
         }
 
         //Checks to see if the cards entered are all valid cards
-        private bool ValidInputCheck(List<string> inputList)
+        private static bool ValidInputCheck(List<string> inputList)
         {
             //Check all of the elements in the list to see if they are valid
             foreach (string card in inputList)
             {
-                //Currently run into the problm of j, q, k, and a getting into suit instead of value because they are letters
-                var value = from c in card
-                             where char.IsDigit(c)
-                             select c;
-                var suit = from c in card
-                           where char.IsLetter(c)
-                           select c;
                 //A valid card is at least 2 characters and at most 3 characters
                 if (card.Length > 1 && card.Length < 4)
                 {
-                    if (char.IsLetter(card[^1]))
+                    int temp = (int)card[^1];
+                    //Check to see if the last character in the card is a valid card suit
+                    if (Enum.IsDefined(typeof(CardSuit),temp))
                     {
-                        List<string> enumValues = new List<string>();
-                        string digits = "";
-
-                        foreach(char i in value.ToList())
-                        {
-                            digits += i;
-                        }
-                        foreach (int i in Enum.GetValues(typeof(FaceCardValue)))
-                        {
-                            enumValues.Add(i.ToString());
-                        }
-                        if (enumValues.Contains(digits))
-                        {
-                            enumValues.Clear();
-                            string letters = "";
-
-                            foreach (char i in suit.ToList())
-                            {
-                                letters += i;
-                            }
-                            char enumAsChar;
-                            foreach (int i in Enum.GetValues(typeof(CardSuit)))
-                            {
-                                enumAsChar = (char)i;
-                                enumValues.Add(enumAsChar.ToString());
-                            }
-                            if (enumValues.Contains(letters))
-                            {
-                                continue; //valid card
-                            }
-                            else
-                                Console.WriteLine("ERROR: Not a valid card suit!");
-                        }
+                        //need to check if all but the last character in the card is a valid card value
+                        if (ValueOfCards.Contains(card.Remove(card.Length - 1, 1)))
+                            continue;
                         else
-                        {
-                            Console.WriteLine("ERROR: Not a valid card value!");
-                        }
-                        //If the card has a length of 3 then it must have a card value of 10 if not then it is invalid
-                        //if (element.Length == 3)
-                        //{
-                        //    if (element[0] == '1' && element[1] == '0')
-                        //    {
-                        //        if (element[2] == 'd' || element[2] == 's' || element[2] == 'c' || element[2] == 'h') //Cards must have a suit that is specified by d, s, c, or h
-                        //        {
-                        //            continue; //The element is valid so continue to the next element
-                        //        }
-                        //        else
-                        //            Console.WriteLine("ERROR: cards can only have the following characters for a suit: d, s, c, h" +
-                        //            "\nCard that caused the error: " + element.ToString());
-                        //    }
-                        //    else
-                        //        Console.WriteLine("ERROR: The only accepted card value for a card that is 3 characters long is 10 (Jack, Queen, King, Ace must be typed as the following: J, Q, K, A)" +
-                        //            "\nCard that caused the error: " + element.ToString());
-                        //}
-                        //else
-                        //{
-                        //    //The card only has a length of 2 so it must have a card value of 1-9, j, q, k, or a if not then it is not a valid card
-                        //    if (element[0] == '2' || element[0] == '3' || element[0] == '4' || element[0] == '5' ||
-                        //        element[0] == '6' || element[0] == '7' || element[0] == '8' || element[0] == '9' ||
-                        //        element[0] == 'j' || element[0] == 'q' || element[0] == 'k' || element[0] == 'a')
-                        //    {
-                        //        if (element[1] == 'd' || element[1] == 's' || element[1] == 'c' || element[1] == 'h') //Cards must have a suit that is specified by d, s, c, or h
-                        //        {
-                        //            continue; //The element is valid so continue to the next element
-                        //        }
-                        //        else
-                        //            Console.WriteLine("ERROR: cards can only have the following characters for a suit: d, s, c, h" +
-                        //                "\nCard that caused the error: " + element.ToString());
-                        //    }
-                        //    else
-                        //        Console.WriteLine("ERROR: The value for a card must be one of the following: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A" +
-                        //                "\nCard that caused the error: " + element.ToString());
-                        //}
+                            Console.WriteLine("ERROR: Card value must be between 2-10 or be J, Q, K, or A.\n" +
+                                "Card that caused Error: " + card);
 
                         return false; //If the program makes it here then a card did not meet the criteria of what makes a valid card and we return false
                     }
@@ -186,7 +108,7 @@ namespace CardSort
                         Console.WriteLine("ERROR: The suit of the card can only be specified after the value of the card has been give");
                         Console.WriteLine("Not Valid Cards: c3, d10, 1s0");
                         Console.WriteLine("Valid Cards: 3c, Js, 2d, 10h, Kh, 8s, Ac, 4h");
-                        Console.WriteLine("Card that caused the error: " + card.ToString());
+                        Console.WriteLine("Card that caused the error: " + card);
                         return false;
                     }
                 }
@@ -202,7 +124,7 @@ namespace CardSort
                     {
                         Console.WriteLine("ERROR: Cards can only be specified by 2 - 3 characters!");
                         Console.WriteLine("Example Cards: 3c, Js, 2d, 10h, Kh, 8s, Ac, 4h");
-                        Console.WriteLine("Card that caused the error: " + card.ToString());
+                        Console.WriteLine("Card that caused the error: " + card);
                     }
                     return false;
                 }
@@ -213,7 +135,7 @@ namespace CardSort
         }
 
         //Creates a list of Card objects from the string list of cards
-        public IList<ICard> CreateListOfCards(List<string> tempCardList)
+        public static IList<ICard> CreateListOfCards(List<string> tempCardList)
         {
             IList<ICard> listOfCards = new List<ICard>();
 

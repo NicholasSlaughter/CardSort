@@ -14,9 +14,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "3c, Js, 2d, 10h, Kh, 8s, Ac, 4h";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expectedCardList = new List<string>(){
                     "3c",
                     "js",
@@ -42,9 +41,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -62,9 +60,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "123d";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -82,9 +79,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "d";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -102,9 +98,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "15d";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -121,9 +116,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "10b";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -140,9 +134,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "0d";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -160,9 +153,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "9b";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);
@@ -180,9 +172,8 @@ namespace CardSortTests
             try
             {
                 string testInput = "10s, 9b";
-                Helper h = new Helper();
 
-                List<string> cardList = h.GetUserInput(testInput);
+                List<string> cardList = Helper.GetUserInput(testInput);
                 List<string> expected = new List<string>();
 
                 Assert.Equal(expected, cardList);

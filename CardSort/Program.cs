@@ -20,15 +20,7 @@ namespace CardSort
     {
         static void Main(string[] args)
         {
-            Dictionary<char, int> faceCardValueDict = new Dictionary<char, int>();
-
-            foreach(int i in Enum.GetValues(typeof(FaceCardValue)))
-            {
-
-            }
-
-            Helper h = new Helper(faceCardValueDict);
-            h.Play();
+            Helper.Play();
             Console.WriteLine("Goodbye");
         }
     }
