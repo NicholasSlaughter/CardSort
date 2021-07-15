@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardSort
 {
-    //TODO: Add unit testing for Value Of Cards, add check for when their are multiple cards that have the same value including face cards
+    //TODO: Add unit testing for Value Of Cards
     public static class ValueOfCards
     {
         public static string Two { get { return "2"; } }
@@ -20,7 +20,7 @@ namespace CardSort
         public static string Queen { get { return "q"; } }
         public static string King { get { return "k"; } }
         public static string Ace { get { return "a"; } }
-        public static bool Contains(string stringToFind)
+        internal static bool Contains(string stringToFind)
         {
             foreach(var prop in typeof(ValueOfCards).GetProperties())
             {

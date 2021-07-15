@@ -36,6 +36,7 @@ namespace CardSort
         public void Sort()
         {
             var tempCards = Cards;
+            Dictionary<string, int> faceCardValueConversion = new Dictionary<string, int>();
 
             //Need to go through each card in the deck and replace the face cards with integer values to make sorting easier
             foreach(Card card in tempCards)
@@ -43,6 +44,12 @@ namespace CardSort
                 if(!int.TryParse(card.GetCardValue(),out int result))
                 {
                     int numValue = (int)Enum.Parse(typeof(FaceCardValue), card.GetCardValueName());
+
+                    //If there is a face card that is equivalent to a number card we need to be able to only convert the exact occurance of that face card back to normal and leave the number cards alone
+                    if (!faceCardValueConversion.ContainsKey(numValue.ToString() + (char)card.GetSuit()))
+                        faceCardValueConversion.Add(numValue.ToString() + (char)card.GetSuit(), 0);
+                    faceCardValueConversion[numValue.ToString() + (char)card.GetSuit()] += 1; //Increment the occurance of the face card by 1
+
                     card.Value = numValue.ToString();
                 }
             }
@@ -55,17 +62,16 @@ namespace CardSort
             IList<ICard> listOfHearts = new List<ICard>();
 
             //For each card in the deck of cards add a card to the list of its suit
-            //TODO: Reduce redundence
             foreach (Card card in deckOfCards)
             {
                 if (card.GetSuit() == CardSuit.Diamonds)
-                    listOfDiamonds.Add(GetProperCardValues(card)); //Card is not face card so add the card to the list of diamonds immediately
+                    listOfDiamonds.Add(GetProperCardValues(card, faceCardValueConversion)); //Card is not face card so add the card to the list of diamonds immediately
                 if (card.GetSuit() == CardSuit.Spades)
-                    listOfSpades.Add(GetProperCardValues(card));
+                    listOfSpades.Add(GetProperCardValues(card, faceCardValueConversion));
                 if (card.GetSuit() == CardSuit.Clubs)
-                    listOfClubs.Add(GetProperCardValues(card));
+                    listOfClubs.Add(GetProperCardValues(card, faceCardValueConversion));
                 if (card.GetSuit() == CardSuit.Hearts)
-                    listOfHearts.Add(GetProperCardValues(card));
+                    listOfHearts.Add(GetProperCardValues(card, faceCardValueConversion));
             }
 
             //Clear the deck of cards and then add to the deck of cards in order of the proper order the program should have i.e. diamonds, spades, clubs, hearts
@@ -78,10 +84,13 @@ namespace CardSort
             Cards = deckOfCards; //Set the list of Cards to the ordered deck of cards
         }
 
-        private Card GetProperCardValues(Card card)
+        private Card GetProperCardValues(Card card, Dictionary<string, int> faceCardValueConversion)
         {
-            if (Enum.IsDefined(typeof(FaceCardValue), Int32.Parse(card.GetCardValue()))) //See if card is a face card given a face card value
+            //See if the card value matches the value of a face card and see if that face card has cards that haven't been converted back yet
+            if (faceCardValueConversion.GetValueOrDefault(card.ToString()) != 0) 
             {
+
+                faceCardValueConversion[card.ToString()] -= 1; //Reduce the occurance of that face card
                 string faceCardToRetrieve = Enum.Parse(typeof(FaceCardValue), card.GetCardValue()).ToString();
                 card.Value = ValueOfCards.GetCardValueByPropName(faceCardToRetrieve); //Replace face card integer value with string value. Ex: 11d -> jd
                 return card;
